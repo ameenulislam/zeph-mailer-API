@@ -1,9 +1,10 @@
 const mongoose = require('mongoose');
 const express = require('express');
 const app = express();
+require('dotenv').config();
 
-const password = encodeURIComponent('eIPdm07tnXKxL3td'); 
-const uri = 'mongodb+srv://ameenulislam4:eIPdm07tnXKxL3td@zephmailer.pycpj9a.mongodb.net/?retryWrites=true&w=majority';
+// const password = encodeURIComponent('eIPdm07tnXKxL3td'); 
+// const uri = 'mongodb+srv://ameenulislam4:eIPdm07tnXKxL3td@zephmailer.pycpj9a.mongodb.net/?retryWrites=true&w=majority';
 
 const PORT = process.env.PORT || 3000
 const connectDB = async () => {
