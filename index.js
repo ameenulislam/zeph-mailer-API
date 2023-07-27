@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const express = require('express');
-const serverless = require('serverless-http')
 const app = express();
 
 const password = encodeURIComponent('eIPdm07tnXKxL3td'); 
@@ -17,11 +16,10 @@ mongoose.connect(uri, {
 
 app.use(express.json());
 
-const userRouter = require('../routes/users')
-app.use('/.netlify/functions/users', userRouter);
+const userRouter = require('./routes/users')
+app.use('/users', userRouter);
 
-const createUserRouter = require('../routes/createUser')
-app.use('/.netlify/functions/addUser', createUserRouter);
+const createUserRouter = require('./routes/createUser')
+app.use('/addUser', createUserRouter);
 
 app.listen(3000, ()=> console.log('server started'));
-module.exports.handler = serverless(app)
