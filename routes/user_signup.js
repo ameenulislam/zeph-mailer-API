@@ -18,7 +18,7 @@ router.post('/signUp', async (req, res) => {
         //account already present
         if (existingUser) {
             status = true;
-            message = 'Successfully Logged in';
+            message = 'Signed in as ' + updatedUser.email;
     
             const customResponse = {
                 id: user.userId,
