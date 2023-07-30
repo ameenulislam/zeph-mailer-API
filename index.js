@@ -17,20 +17,16 @@ const connectDB = async () => {
   }
 }
 
-// mongoose.connect(uri, {
-//   useNewUrlParser: true,
-//   useUnifiedTopology: true,
-// })
-//   .then(() => console.log('Connected to MongoDB'))
-//   .catch((err) => console.error('Error connecting to MongoDB:', err));
-
 app.use(express.json());
 
 const userRouter = require('./routes/users')
 app.use('/users', userRouter);
 
-const createUserRouter = require('./routes/createUser')
-app.use('/addUser', createUserRouter);
+const emailAccountRouter = require('./routes/add_email_account')
+app.use('/addEmailAccount', emailAccountRouter);
+
+const newUserRouter = require('./routes/user_signup')
+app.use('/', newUserRouter);
 
 connectDB().then(() => {
   app.listen(PORT, () => {

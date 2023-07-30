@@ -1,14 +1,14 @@
 const express = require('express');
 const router = express.Router();
 const nodeMailer = require('nodemailer');
-const UserSchema = require('../models/userModel');
+const EmailSchema = require('../models/email_account_model');
 
-let userId = 0;
+let accountId = 0;
 let status = false;
 let message = '';
 
 router.post('/', async(req, res) =>{
-    const user = new UserSchema({
+    const user = new EmailSchema({
         name :req.body.name,
         email: req.body.email,
         password : req.body.password,
@@ -18,14 +18,14 @@ router.post('/', async(req, res) =>{
     })
 
     try {
-        const existingUser = await UserSchema.findOne({ email: req.body.email });
+        const existingUser = await EmailSchema.findOne({ email: req.body.email });
 
         if (existingUser) {
             status = false;
             message = 'user already exists with this email address';
 
             const customResponse = {
-                id: user.userId,
+                id: user.accountId,
                 status: status, 
                 message : message,
                 details: {
@@ -62,8 +62,8 @@ router.post('/', async(req, res) =>{
                     };
                     res.json(customResponse);
                 } else {
-                    userId++; 
-                    user.userId = userId; 
+                    accountId++; 
+                    user.userId = accountId; 
                     status = true;
                     message = 'Account successfully added'
                     
