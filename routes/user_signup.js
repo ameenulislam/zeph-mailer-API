@@ -14,7 +14,8 @@ router.post('/signUp', async (req, res) => {
 
     try {
         const existingUser = await UserSchema.findOne({ email: req.body.email });
-    
+        
+        //account already present
         if (existingUser) {
             status = true;
             message = 'Successfully Logged in';
@@ -23,7 +24,7 @@ router.post('/signUp', async (req, res) => {
                 id: user.userId,
                 status: status, 
                 message : message,
-                type : 0,
+                newAccount : false,
                 details: {
                     name : user.name,
                     email : user.email
@@ -31,6 +32,7 @@ router.post('/signUp', async (req, res) => {
             };
             res.json(customResponse);
         } else {
+            //account not present in the db
                     userId++; 
                     user.userId = userId; 
                     status = true;
@@ -42,7 +44,7 @@ router.post('/signUp', async (req, res) => {
                         id: user.userId,
                         status: status, 
                         message : message,
-                        type : 1,
+                        newAccount : true,
                         details: {
                             name : user.name,
                             email : user.email
@@ -63,13 +65,14 @@ router.post('/signUp', async (req, res) => {
 router.patch('/updateName', async (req, res) => {
     try {
         const updatedUser = await UserSchema.findOneAndUpdate({email: req.body.email}, {userName :  req.body.userName}, {new: true});
-
+        
+        
         if (updatedUser) {
             const customResponse = {
                 id: updatedUser.userId,
                 status: true, 
                 message : 'Signed in as ' + updatedUser.email,
-                type : 1,
+                newAccount : false,
                 details: {
                     name : updatedUser.userName,
                     email : updatedUser.email
@@ -81,7 +84,7 @@ router.patch('/updateName', async (req, res) => {
                 id: updatedUser.userId,
                 status: false, 
                 message : 'User not found',
-                type : 0,
+                newAccount : true,
                 details: {
                     name : updatedUser.userName,
                     email : updatedUser.email
