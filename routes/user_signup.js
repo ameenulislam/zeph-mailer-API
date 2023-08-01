@@ -6,6 +6,8 @@ let userId = 0;
 let status = false;
 let message = '';
 
+// signup a new user goes here =======================================================================>
+
 router.post('/signUp', async (req, res) => {  
     const user = new UserSchema({
         email: req.body.email,
@@ -18,7 +20,7 @@ router.post('/signUp', async (req, res) => {
         //account already present
         if (existingUser) {
             status = true;
-            message = 'Signed in as ' + updatedUser.email;
+            message = 'Signed in as ' + existingUser.email;
     
             const customResponse = {
                 id: user.userId,
@@ -61,6 +63,9 @@ router.post('/signUp', async (req, res) => {
         res.status(400).json({ message: error.message });
     }
 });
+
+
+// update username route goes here ================================================================>
 
 router.patch('/updateName', async (req, res) => {
     try {
