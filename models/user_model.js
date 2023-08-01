@@ -11,7 +11,12 @@ const UserSchema = new mongoose.Schema({
     },
     userName :{
         type : String,
-        
+    },
+    campaigns:{
+        type : Array,
+    },
+    Accounts:{
+        type : Array,
     }
 })
 

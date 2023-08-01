@@ -20,7 +20,7 @@ const connectDB = async () => {
 app.use(express.json());
 
 const userRouter = require('./routes/users')
-app.use('/users', userRouter);
+app.use('/', userRouter);
 
 const emailAccountRouter = require('./routes/add_email_account')
 app.use('/addEmailAccount', emailAccountRouter);
