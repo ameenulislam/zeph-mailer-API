@@ -2,12 +2,13 @@ const express = require('express');
 const router = express.Router();
 const nodeMailer = require('nodemailer');
 const EmailSchema = require('../models/email_account_model');
+const email_account_model = require('../models/email_account_model');
 
 let accountId = 0;
 let status = false;
 let message = '';
 
-router.post('/', async(req, res) =>{
+router.post('/addEmail', async(req, res) =>{
     const user = new EmailSchema({
         name :req.body.name,
         email: req.body.email,
@@ -93,6 +94,16 @@ router.post('/', async(req, res) =>{
         res.status(400).json({ message: error.message });
     }
 })
+
+// Read
+router.get('/readEmail', async (req, res) => {
+    try {
+        const leads = await email_account_model.find();
+        res.json(leads);
+    } catch (error) {
+        res.json({message : error.message});    
+    }
+});
 
 
 module.exports = router;

@@ -23,13 +23,16 @@ const userRouter = require('./routes/users')
 app.use('/', userRouter);
 
 const emailAccountRouter = require('./routes/add_email_account')
-app.use('/addEmailAccount', emailAccountRouter);
+app.use('/emailAccount', emailAccountRouter);
 
 const newUserRouter = require('./routes/user_signup')
 app.use('/', newUserRouter);
 
+const leadsRouter = require('./routes/leads')
+app.use('/leads', leadsRouter);
+
 connectDB().then(() => {
   app.listen(PORT, () => {
-      console.log("listening for requests");
+      console.log("listening for requests on " + PORT);
   })
 })

@@ -1,0 +1,27 @@
+Post http://localhost:3000/leads 
+
+{
+    "name" : "John cena",
+    "email" : "john@cena.com", 
+}
+
+###
+Post http://localhost:3000/leads 
+
+Get http://localhost:3000/emailAccount/readEmail
+
+Get http://localhost:3000/emailAccount/readEmail
+
+###
+Get http://localhost:3000/emailAccount/readEmail
+
+###
+Post http://localhost:3000/emailAccount/addEmail
+{
+    "name" : "John cena",
+    "email" : "john@cena.com",
+    "smtphost" : "mail.zephyrcreative.in",  
+    "password" : "example1",  
+    "port" : "example2",  
+    "secure" : true,  
+}
