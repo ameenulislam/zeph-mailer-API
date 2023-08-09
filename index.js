@@ -1,7 +1,12 @@
 const mongoose = require('mongoose');
 const express = require('express');
+var cors = require('cors');
+
 const app = express();
+app.use(cors({origin: true, credentials: true}));
+
 require('dotenv').config();
+
 
 // const password = encodeURIComponent('eIPdm07tnXKxL3td'); 
 // const uri = 'mongodb+srv://ameenulislam4:eIPdm07tnXKxL3td@zephmailer.pycpj9a.mongodb.net/?retryWrites=true&w=majority';

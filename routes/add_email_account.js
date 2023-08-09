@@ -8,6 +8,7 @@ let accountId = 0;
 let status = false;
 let message = '';
 
+// Add
 router.post('/addEmail', async(req, res) =>{
     const user = new EmailSchema({
         name :req.body.name,

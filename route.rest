@@ -17,11 +17,12 @@ Get http://localhost:3000/emailAccount/readEmail
 
 ###
 Post http://localhost:3000/emailAccount/addEmail
+
 {
-    "name" : "John cena",
-    "email" : "john@cena.com",
+    "name" : "john",
+    "email" : "zephyrcreative4@gmail.com",
     "smtphost" : "mail.zephyrcreative.in",  
-    "password" : "example1",  
-    "port" : "example2",  
+    "password" : "ayca6aw8habjwhb",  
+    "port" : 857,  
     "secure" : true,  
 }
