@@ -77,6 +77,28 @@ router.post('/addEmail', async(req, res) =>{
     
 });
 
+router.post('/removeAccount', async(req,res) =>{
+    try {
+        const {userId, accountId} = req.body;
+        
+        const user = await UserSchema.findOne({userId : userId});
+
+        if(!user){
+            const response = {status: false, message: "User not found"};
+            return res.json(response);
+        }
+        
+        user.emailAccounts = user.emailAccounts.filter(account => account.id !== accountId);
+        await user.save();
+
+        const response = {status : true, message :"Account removed"}
+        return res.json(response);
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
 
 
 module.exports = router;
