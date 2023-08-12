@@ -74,10 +74,11 @@ router.post('/login', async (req, res) => {
     }
   });
 
+// GET USER INFO ===============================================>
 router.post('/userInfo', async (req, res) => {
     const id = req.body.id;
 
-    const user = await userModel.findOne({userId: id});
+    const user = await UserSchema.findOne({userId: id});
 
     if(user){
         const customResponse = {
@@ -85,10 +86,10 @@ router.post('/userInfo', async (req, res) => {
             status: true, 
             message : "User fetched",
             details: {
-                name : user.name,
+                name : user.userName,
                 email : user.email
             },
-            emailAccounts:[],
+            emailAccounts:user.emailAccounts,
             campaigns:[],
 
         };

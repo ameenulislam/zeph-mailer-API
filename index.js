@@ -26,10 +26,10 @@ const connectDB = async () => {
 
 app.use(express.json());
 
-const userRouter = require('./routes/users')
+const userRouter = require('./routes/user_router')
 app.use('/api', userRouter);
 
-const emailAccountRouter = require('./routes/add_email_account')
+const emailAccountRouter = require('./routes/email_accounts_router')
 app.use('/api', emailAccountRouter);
 
 connectDB().then(() => {

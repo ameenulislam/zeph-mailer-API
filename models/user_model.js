@@ -13,9 +13,8 @@ const UserSchema = new mongoose.Schema({
     password : {
         type: String,
     },
-    emailAccounts:[{emailId : String, port: Number}]
+    emailAccounts:[{id: Number, emailId : String, port: Number, host : String, emailPassword : String, secure: Boolean}]
     
-     
 })
 
 module.exports = mongoose.model('User', UserSchema);
