@@ -1,100 +1,31 @@
 const express = require('express');
 const router = express.Router();
 const nodeMailer = require('nodemailer');
-const EmailSchema = require('../models/email_account_model');
-const email_account_model = require('../models/email_account_model');
-
-let accountId = 0;
-let status = false;
-let message = '';
+const UserSchema = require('../models/user_model');
 
 // Add
 router.post('/addEmail', async(req, res) =>{
-    const user = new EmailSchema({
-        name :req.body.name,
-        email: req.body.email,
-        password : req.body.password,
-        port: req.body.port,
-        smtphost : req.body.smtphost,
-        secure : req.body.secure,
-    })
+        try {
+            const { userId, emailId, port } = req.body;
 
-    try {
-        const existingUser = await EmailSchema.findOne({ email: req.body.email });
-
-        if (existingUser) {
-            status = false;
-            message = 'user already exists with this email address';
-
-            const customResponse = {
-                id: user.accountId,
-                status: status, 
-                message : message,
-                details: {
-                    name : user.name,
-                    email : user.email
-                },
-            };
-            res.json(customResponse);
-        } else {
-            const transporter = await nodeMailer.createTransport({
-                host: user.smtphost,
-                port: user.port,
-                secure: user.secure, // Set to true for SSL connections, false for TLS
-                auth: {
-                  user: user.email,
-                  pass: user.password
-                },
-            });
-
-           await transporter.verify( async (error, success) => {
-                if (error) {
-                    status = false;
-                    message = error.message
-                    console.log("Something wrong with the mailer");
-
-                    const customResponse = {
-                        id: user.userId,
-                        status: status, 
-                        message : message,
-                        details: {
-                            name : user.name,
-                            email : user.email
-                        },
-                    };
-                    res.json(customResponse);
-                } else {
-                    accountId++; 
-                    user.userId = accountId; 
-                    status = true;
-                    message = 'Account successfully added'
-                    
-                    await user.save();
-
-                    const customResponse = {
-                        id: user.userId,
-                        status: status, 
-                        message : message,
-                        details: {
-                            name : user.name,
-                            email : user.email
-                        },
-                    };
-                    res.json(customResponse);
-                    
-                  console.log('Transporter is ready to send emails');
-                }
-            });
-
-           
-        }
-
+            console.log(emailId);
         
-
-    } catch (error) {
-        res.status(400).json({ message: error.message });
-    }
-})
+            const user = await UserSchema.findOne({ userId: userId });
+        
+            if (!user) {
+              return res.status(404).json({ error: 'User not found' });
+            }
+        
+            user.emailAccounts.push({emailId : emailId, port: port });
+            const updatedUser = await user.save();
+        
+            return res.status(201).json({ user: updatedUser });
+        } catch (error) {
+            console.error(error);
+            return res.status(500).json({ error: 'Internal Server Error' });
+        }
+    
+});
 
 // Read
 router.get('/readEmail', async (req, res) => {

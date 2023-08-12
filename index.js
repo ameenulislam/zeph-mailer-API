@@ -13,9 +13,6 @@ app.use(function(req, res, next) {
   next();
 });
 
-// const password = encodeURIComponent('eIPdm07tnXKxL3td'); 
-// const uri = 'mongodb+srv://ameenulislam4:eIPdm07tnXKxL3td@zephmailer.pycpj9a.mongodb.net/?retryWrites=true&w=majority';
-
 const PORT = process.env.PORT || 3000
 const connectDB = async () => {
   try {
@@ -30,16 +27,10 @@ const connectDB = async () => {
 app.use(express.json());
 
 const userRouter = require('./routes/users')
-app.use('/', userRouter);
+app.use('/api', userRouter);
 
 const emailAccountRouter = require('./routes/add_email_account')
-app.use('/emailAccount', emailAccountRouter);
-
-const newUserRouter = require('./routes/user_signup')
-app.use('/', newUserRouter);
-
-const leadsRouter = require('./routes/leads')
-app.use('/leads', leadsRouter);
+app.use('/api', emailAccountRouter);
 
 connectDB().then(() => {
   app.listen(PORT, () => {
