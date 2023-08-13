@@ -30,6 +30,7 @@ router.post('/signUp', async (req, res) => {
             await user.save();
 
             const successResponse = {
+                id: userId,
                 status : true,
                 message: "Signup successful",
             }
@@ -64,6 +65,7 @@ router.post('/login', async (req, res) => {
         return res.json(customResponse);
       }
       const customResponse = {
+        id: user.userId,
         status : true,
         message : "Login successful"
     }
