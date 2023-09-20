@@ -26,7 +26,7 @@ router.post('/addEmail', async(req, res) =>{
                     status : false,
                     message : "Email already exists"
                 }
-                return res.status(400).json(response);
+                return res.status(200).json(response);
             }
 
             const transporter = nodeMailer.createTransport({
@@ -46,7 +46,7 @@ router.post('/addEmail', async(req, res) =>{
                     status : false,
                     message : "A Network error occured"
                 }
-                return res.status(400).json(response);
+                return res.status(200).json(response);
             } else  {
                 user.emailAccounts.push({
                     id: id,
@@ -91,7 +91,7 @@ router.post('/removeAccount', async(req,res) =>{
         user.emailAccounts = user.emailAccounts.filter(account => account.id !== accountId);
         await user.save();
 
-        const response = {status : true, message :"Account removed"}
+        const response = {status : true, message :"Account removed Successfully"}
         return res.json(response);
     } catch (error) {
         console.error(error);
