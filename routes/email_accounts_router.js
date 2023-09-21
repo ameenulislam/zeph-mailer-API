@@ -16,7 +16,7 @@ router.post('/addEmail', async(req, res) =>{
                     status : false,
                     message : "User not found"
                 }
-                return res.status(404).json(response);
+                return res.status(200).json(response);
             }
 
             const emailExists = user.emailAccounts.some(account => account.emailId === emailId);

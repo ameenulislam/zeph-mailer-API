@@ -92,7 +92,8 @@ router.post('/userInfo', async (req, res) => {
                 email : user.email
             },
             emailAccounts:user.emailAccounts,
-            campaigns:[],
+            contactList:user.contactList
+            
 
         };
         res.json(customResponse);

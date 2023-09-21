@@ -13,7 +13,8 @@ const UserSchema = new mongoose.Schema({
     password : {
         type: String,
     },
-    emailAccounts:[{id: Number, emailId : String, port: Number, host : String, emailPassword : String, secure: Boolean}]
+    emailAccounts:[{id: Number, emailId : String, port: Number, host : String, emailPassword : String, secure: Boolean}],
+    contactList: [{id:Number,  listName:String, contactList: Array}]
     
 })
 

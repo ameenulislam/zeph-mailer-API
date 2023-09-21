@@ -31,6 +31,9 @@ app.use('/api', userRouter);
 const emailAccountRouter = require('./routes/email_accounts_router')
 app.use('/api', emailAccountRouter);
 
+const contactListRouter = require('./routes/contact_list_router')
+app.use('/api', contactListRouter);
+
 connectDB().then(() => {
   app.listen(PORT, () => {
       console.log("listening for requests on " + PORT);
