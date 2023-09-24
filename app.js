@@ -13,7 +13,7 @@ app.use(function(req, res, next) {
   next();
 });
 
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT || 5001
 const connectDB = async () => {
   try {
     const conn = await mongoose.connect(process.env.MONGO_URI);
@@ -25,6 +25,8 @@ const connectDB = async () => {
 }
 
 app.use(express.json());
+
+app.get('/', (req, res)=> res.json("Welcome to Zeph Mailer !, The API is currently working"));
 
 const userRouter = require('./routes/user_router')
 app.use('/api', userRouter);
